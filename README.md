@@ -36,7 +36,7 @@ entonces, para hacer el deploy:
 npm run deploy
 ```
 
-### Local development
+### Local
 
 Para levantar los servicios en un ambiente local:
 
