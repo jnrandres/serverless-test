@@ -1,0 +1,29 @@
+{
+  "name": "aws-swapi",
+  "version": "1.0.0",
+  "description": "Desarollo del examen tecnico en serverless",
+  "scripts": {
+    "deploy": "sls deploy --verbose",
+    "dev": "sls offline start",
+    "build": "tsc --build",
+    "test": "serverless-bundle test"
+  },
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "axios": "^1.1.3",
+    "build": "^0.1.4",
+    "dotenv": "^16.0.3",
+    "http-status-codes": "^2.2.0",
+    "mysql": "^2.18.1",
+    "serverless-http": "^2.7.0",
+    "ts-node-dev": "^2.0.0",
+    "typeorm": "^0.3.10"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/jest": "^29.1.2",
+    "serverless-bundle": "^5.5.0",
+    "serverless-offline": "^11.1.2",
+    "typescript": "^4.8.4"
+  }
+}

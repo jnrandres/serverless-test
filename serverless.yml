@@ -1,0 +1,66 @@
+service: service-starwars
+frameworkVersion: "3"
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+  apiGateway:
+    restApiId: xxxxxx
+    restApiRootResourceId: xxxxxx
+package:
+  patterns:
+    - "!src/**"
+    - "!test/**"
+functions:
+  # services for planet
+  getAllPlanets:
+    handler: dist/app.getAllPlanets
+    events:
+      - http:
+          path: planets
+          method: get
+  getByIdPlanet:
+    handler: dist/app.getByIdPlanet
+    events:
+      - http:
+          path: planets/{id}
+          method: get
+  registerPlanet:
+    handler: dist/app.registerPlanet
+    events:
+      - http:
+          path: planets
+          method: post
+  updatePlanet:
+    handler: dist/app.updatePlanet
+    events:
+      - http:
+          path: planets/{id}
+          method: put
+  removePlanet:
+    handler: dist/app.removePlanet
+    events:
+      - http:
+          path: planets/{id}
+          method: delete
+  # services for user
+  getAllUsers:
+    handler: dist/app.getAllUsers
+    events:
+      - http:
+          path: users
+          method: get
+  getByIdUser:
+    handler: dist/app.getByIdUser
+    events:
+      - http:
+          path: users/{id}
+          method: get
+  postRegisterUser:
+    handler: dist/app.postRegisterUser
+    events:
+      - http:
+          path: users
+          method: post
+plugins:
+  - serverless-offline

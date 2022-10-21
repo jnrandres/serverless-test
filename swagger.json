@@ -1,0 +1,653 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Service planets and users in lambda",
+    "description": "Servicio para consumir SWAPI",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/dev"
+    }
+  ],
+  "tags": [
+    {
+      "name": "planet",
+      "description": "Operations about planet"
+    }
+  ],
+  "paths": {
+    "/planets": {
+      "post": {
+        "tags": [
+          "planet"
+        ],
+        "summary": "Create a planet",
+        "operationId": "createPlanet",
+        "requestBody": {
+          "description": "Se debe ingresar un id valido de SWAPI",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se ha obtenido correctamente los registros"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PlanetCreate"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "planet"
+        ],
+        "summary": "Get all planets",
+        "operationId": "getPlanet",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se ha obtenido correctamente los registros"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Planet"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/planets/{id}": {
+      "get": {
+        "tags": [
+          "planet"
+        ],
+        "summary": "Get planet by id",
+        "operationId": "getPlanetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Se necesita un id valido de SWAPI.",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se ha obtenido correctamente los registros"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Planet"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "planet"
+        ],
+        "summary": "Update planet by id",
+        "operationId": "updatePlanetById",
+        "requestBody": {
+          "description": "Se manda los valores que se desean editar",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanetBase"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Se necesita un id valido de SWAPI.",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se ha actualizado correctamente el registro"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "planet"
+        ],
+        "summary": "Delete planet by id",
+        "operationId": "deletePlanetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Se necesita un id valido de SWAPI.",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se ha eliminado correctamente los registros"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se creó la información correctamente"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get all users",
+        "operationId": "getUsers",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se ha obtenido correctamente los registros"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by id",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Se ha obtenido correctamente los registros"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PlanetBase": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Tatooine"
+          },
+          "periodo_rotacion": {
+            "type": "string",
+            "example": 23
+          },
+          "periodo_orbital": {
+            "type": "string",
+            "example": 304
+          },
+          "diametro": {
+            "type": "string",
+            "example": 10465
+          },
+          "clima": {
+            "type": "string",
+            "example": "arid"
+          },
+          "gravedad": {
+            "type": "string",
+            "example": "1 standard"
+          },
+          "terreno": {
+            "type": "string",
+            "example": "desert"
+          },
+          "superficie_agua": {
+            "type": "string",
+            "example": 1
+          },
+          "poblacion": {
+            "type": "string",
+            "example": 200000
+          },
+          "residentes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Resident"
+            }
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pelicula"
+            }
+          },
+          "creado": {
+            "type": "string",
+            "example": "2014-12-09T13:50:49.641Z"
+          },
+          "editado": {
+            "type": "string",
+            "example": "2014-12-09T13:50:49.641Z"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://swapi.py4e.com/api/planets/1/"
+          }
+        }
+      },
+      "Planet": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "number",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "example": "Tatooine"
+          },
+          "periodo_rotacion": {
+            "type": "string",
+            "example": 23
+          },
+          "periodo_orbital": {
+            "type": "string",
+            "example": 304
+          },
+          "diametro": {
+            "type": "string",
+            "example": 10465
+          },
+          "clima": {
+            "type": "string",
+            "example": "arid"
+          },
+          "gravedad": {
+            "type": "string",
+            "example": "1 standard"
+          },
+          "terreno": {
+            "type": "string",
+            "example": "desert"
+          },
+          "superficie_agua": {
+            "type": "string",
+            "example": 1
+          },
+          "poblacion": {
+            "type": "string",
+            "example": 200000
+          },
+          "residentes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Resident"
+            }
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pelicula"
+            }
+          },
+          "creado": {
+            "type": "string",
+            "example": "2014-12-09T13:50:49.641Z"
+          },
+          "editado": {
+            "type": "string",
+            "example": "2014-12-09T13:50:49.641Z"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://swapi.py4e.com/api/planets/1/"
+          }
+        }
+      },
+      "PlanetCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "5aaa54c8-7fa0-4273-89f5-65c4172e9a64"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2022-10-21T02:16:03.981Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2022-10-21T02:16:03.981Z"
+          },
+          "pid": {
+            "type": "number",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "example": "Tatooine"
+          },
+          "periodo_rotacion": {
+            "type": "string",
+            "example": 23
+          },
+          "periodo_orbital": {
+            "type": "string",
+            "example": 304
+          },
+          "diametro": {
+            "type": "string",
+            "example": 10465
+          },
+          "clima": {
+            "type": "string",
+            "example": "arid"
+          },
+          "gravedad": {
+            "type": "string",
+            "example": "1 standard"
+          },
+          "terreno": {
+            "type": "string",
+            "example": "desert"
+          },
+          "superficie_agua": {
+            "type": "string",
+            "example": 1
+          },
+          "poblacion": {
+            "type": "string",
+            "example": 200000
+          },
+          "residentes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Resident"
+            }
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pelicula"
+            }
+          },
+          "creado": {
+            "type": "string",
+            "example": "2014-12-09T13:50:49.641Z"
+          },
+          "editado": {
+            "type": "string",
+            "example": "2014-12-09T13:50:49.641Z"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://swapi.py4e.com/api/planets/1/"
+          }
+        }
+      },
+      "PlanetUpdate": {
+        "type": "object",
+        "properties": {
+          "affected": {
+            "type": "string",
+            "example": 1
+          },
+          "generatedMaps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GeneratedMaps"
+            }
+          },
+          "raw": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Raw"
+            }
+          }
+        }
+      },
+      "Resident": {
+        "type": "string",
+        "example": "https://swapi.py4e.com/api/people/1/"
+      },
+      "GeneratedMaps": {
+        "type": "string",
+        "example": ""
+      },
+      "Raw": {
+        "type": "string",
+        "example": ""
+      },
+      "Pelicula": {
+        "type": "string",
+        "example": "https://swapi.py4e.com/api/films/1/"
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "6bb92687-cbe5-442d-909a-a559819d4eb3"
+          },
+          "name": {
+            "type": "string",
+            "example": "Angel"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Perez"
+          },
+          "email": {
+            "type": "string",
+            "example": "angel@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345"
+          },
+          "phone": {
+            "type": "string",
+            "example": "12345"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2022-10-14 23:23:55"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2022-10-14 23:23:55"
+          }
+        }
+      },
+      "UserInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Angel"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Perez"
+          },
+          "email": {
+            "type": "string",
+            "example": "angel@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
