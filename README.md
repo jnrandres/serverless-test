@@ -33,7 +33,7 @@ antes de hacer el deploy se debe configurar los campos del API-Gateway
 entonces, para hacer el deploy:
 
 ```
-npm run deploy
+npm run build && npm run deploy
 ```
 
 ### Local
